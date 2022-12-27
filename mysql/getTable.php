@@ -1,7 +1,7 @@
-<?php require_once __DIR__ . "/mysqlConnect.php";?>
-<?php require_once __DIR__ . "/../functions.php";?>
+<?php 
+require_once __DIR__ . "/mysqlConnect.php";
+require_once __DIR__ . "/../functions.php";
 
-<?php
 
     if (isset($_POST['setDate'])) {
         $dateStart = strtotime($_POST['setDate']);
@@ -9,7 +9,11 @@
         $dateStart = strtotime(returnDate());
     }
 
-    $dateEnd = $dateStart + 83399;
+    $dateEnd = $dateStart + 84000;
+
+    if (isset($_POST['setEndDate'])) {
+        $dateEnd = strtotime($_POST['setEndDate']);
+    }
 
     $tableName = tableName();
 
@@ -22,8 +26,17 @@
     
     $result = $mysqli->query("SELECT SUM(profit) AS value_sum FROM `stats_sale` WHERE `date` BETWEEN '$dateStart' AND '$dateEnd'"); 
     $row = mysqli_fetch_assoc($result); 
-    $summProfit = $row['value_sum'];
+    if ($row['value_sum'] == NULL) {
+        $sumProfit = 0;
+    } else {
+        $sumProfit = $row['value_sum'];
+    }
 
+    $sumCost = 0;
     $result = $mysqli->query("SELECT SUM(price) AS value_sum FROM `stats_cost` WHERE `date` BETWEEN '$dateStart' AND '$dateEnd'"); 
-    $row = mysqli_fetch_assoc($result); 
-    $summCost = $row['value_sum'];
+    $row = mysqli_fetch_assoc($result);
+    if ($row['value_sum'] == NULL) {
+        $sumCost = 0;
+    } else {
+        $sumCost = $row['value_sum'];
+    }

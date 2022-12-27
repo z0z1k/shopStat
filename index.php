@@ -1,6 +1,8 @@
-<?php require __DIR__ . "/header.php";?>
-<?php require_once __DIR__ . "/mysql/getTable.php";?>
-<?php require_once __DIR__ . "/functions.php";?>
+<?php
+require __DIR__ . "/header.php";
+require_once __DIR__ . "/mysql/getTable.php";
+require_once __DIR__ . "/functions.php";
+?>
 
 <div class="container">
 <table class="container">
@@ -36,25 +38,25 @@
     <tr>
     <?php if (isCost()) { ?>
         <td>
-            <input type="checkbox" name="idDelete[]" value="<?=$product['id'];?>">
-            <a href="mysql/editCost.php?editId=<?=$product['id'];?>"><img src="img/edit.png" width="20px"></a>
+            <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>">
+            <a href="mysql/editCost.php?editId=<?=$product['id']?>"><img src="img/edit.png" width="20px"></a>
         </td>
-        <td><?=$product['category'];?></td>
-        <td><?=$product['name'];?></td>
-        <td><?=$product['price'];?></td>
+        <td><?=$product['category']?></td>
+        <td><?=$product['name']?></td>
+        <td><?=$product['price']?></td>
         <td></td>
-        <td><?=date('G:i:s', $product['date']);?></td>
+        <td><?=date('G:i:s', $product['date'])?></td>
     <?php } else { ?>
         <td>
-            <input type="checkbox" name="idDelete[]" value="<?=$product['id'];?>">
-            <a href="mysql/editSale.php?editId=<?=$product['id'];?>"><img src="img/edit.png" width="20px"></a>
+            <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>">
+            <a href="mysql/editSale.php?editId=<?=$product['id']?>"><img src="img/edit.png" width="20px"></a>
         </td>
-        <td><?=$product['product'];?></td>
-        <td><?=$product['price'];?></td>
-        <td><?=$product['profit'];?>
+        <td><?=$product['product']?></td>
+        <td><?=$product['price']?></td>
+        <td><?=$product['profit']?>
         </td>
-        <td><?=$product['remains'];?></td>
-        <td><?=date('G:i:s', $product['date']);?></td>
+        <td><?=$product['remains']?></td>
+        <td><?=date('G:i:s', $product['date'])?></td>
     <?php } ?>
     </tr>
     <?php } ?>
@@ -100,10 +102,23 @@
     <tr>
         <td colspan="6">
             <form name="setDate" method="post">
-                За <input type="date" name="setDate" value="<?=date('Y-m-d', $dateStart);?>">
-                <input type="submit" value="setDate" name="setDateBTN"> сума чистих <?=$summProfit;?>, витрати <?=$summCost;?>, загальний дохід <?=$summProfit - $summCost;?>
-            </form>
+                За <input type="date" name="setDate" value="<?=date('Y-m-d', $dateStart)?>">
+                <input type="submit" value="setDate" name="setDateBTN"> сума чистих <?=$sumProfit?>, витрати <?=$sumCost?>, загальний дохід <?=$sumProfit - $sumCost?>
         </td>
+    </tr>
+
+    <tr>
+        <td colspan="6">
+            <?php if (isset($_GET['date']) && $_GET['date'] == 'period') { ?>
+                <input type="date" name="setEndDate" value="<?=date('Y-m-d', $dateEnd)?>">
+                </form>
+            <?php } else { 
+                if (isCost()) { ?>
+                    <a href="<?=$_SERVER['REQUEST_URI'] . '&date=period'?>">Вибрати період</a>
+                <?php } else { ?>
+                    <a href="<?=$_SERVER['REQUEST_URI'] . '?date=period'?>">Вибрати період</a>
+                <?php } ?>
+            <?php } ?>
         </td>
     </tr>
 </tbody>

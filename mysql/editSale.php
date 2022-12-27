@@ -1,7 +1,8 @@
-<?php require __DIR__ . "/../functions.php";?>
-<?php require __DIR__ . "/mysqlConnect.php";?>
-<?php require __DIR__ . "/../header.php";?>
-<?php
+<?php 
+require __DIR__ . "/../functions.php";
+require __DIR__ . "/mysqlConnect.php";
+require __DIR__ . "/../header.php";
+
     if(isset($_GET['editId'])) {
 
     $editId = $_GET['editId'];
@@ -21,10 +22,10 @@
     <div class="container">
         <table border="1" width="80%" align="center">
             <tr>
-                <td><input type="text" name="product" value="<?=$product['product'];?>"></td>
-                <td><input type="text" name="price" value="<?=$product['price'];?>"></td>
-                <td><input type="text" name="profit" value="<?=$product['profit'];?>"></td>
-                <td><input type="text" name="remains" value="<?=$product['remains'];?>"></td>
+                <td><input type="text" name="product" value="<?=$product['product']?>"></td>
+                <td><input type="text" name="price" value="<?=$product['price']?>"></td>
+                <td><input type="text" name="profit" value="<?=$product['profit']?>"></td>
+                <td><input type="text" name="remains" value="<?=$product['remains']?>"></td>
             </tr>
         </table>
     </div>

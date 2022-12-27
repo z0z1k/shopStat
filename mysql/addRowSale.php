@@ -1,6 +1,6 @@
-<?php require __DIR__ . "/mysqlConnect.php";?>
-<?php require __DIR__ . "/../functions.php";?>
-<?php
+<?php 
+require __DIR__ . "/mysqlConnect.php";
+require __DIR__ . "/../functions.php";
     
     if(isset($_POST['addProduct'])){
 
