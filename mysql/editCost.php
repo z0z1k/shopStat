@@ -36,6 +36,10 @@ require __DIR__ . "/../header.php";
         $category = !empty($_POST['category']) ? $_POST['category'] : '';
         $name = !empty($_POST['name']) ? $_POST['name'] : 0;
         $price = !empty($_POST['price']) ? $_POST['price'] : 0;
+
+        $category = $mysqli->real_escape_string($category);
+        $name = $mysqli->real_escape_string($name);
+        $price = $mysqli->real_escape_string($price);
         
         $mysqli->query("UPDATE `stats_cost` SET `category` = '$category', `name` = '$name', `price` = '$price' WHERE `stats_cost`.`id` = '$editId'"); 
         

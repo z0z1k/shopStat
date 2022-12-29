@@ -3,17 +3,25 @@ require_once __DIR__ . "/mysqlConnect.php";
 require_once __DIR__ . "/../functions.php";
 
 
-    if (isset($_POST['setDate'])) {
-        $dateStart = strtotime($_POST['setDate']);
-    } else {
+    if (!isset($_COOKIE['dateStart'])) {
         $dateStart = strtotime(returnDate());
+    } else {
+        $dateStart = $_COOKIE['dateStart'];
     }
+    
+    if (isset($_POST['setDateBTN'])) {
+        $dateStart = strtotime($_POST['setStartDate']);
+    }
+
+    setcookie("dateStart", $dateStart , time()+600);
 
     $dateEnd = $dateStart + 84000;
 
     if (isset($_POST['setEndDate'])) {
         $dateEnd = strtotime($_POST['setEndDate']);
     }
+
+    setcookie("dateEnd", $dateEnd, time()+600);
 
     $tableName = tableName();
 

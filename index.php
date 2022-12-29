@@ -102,7 +102,7 @@ require_once __DIR__ . "/functions.php";
     <tr>
         <td colspan="6">
             <form name="setDate" method="post">
-                За <input type="date" name="setDate" value="<?=date('Y-m-d', $dateStart)?>">
+                За <input type="date" name="setStartDate" value="<?=date('Y-m-d', $dateStart)?>">
                 <input type="submit" value="setDate" name="setDateBTN"> сума чистих <?=$sumProfit?>, витрати <?=$sumCost?>, загальний дохід <?=$sumProfit - $sumCost?>
         </td>
     </tr>
