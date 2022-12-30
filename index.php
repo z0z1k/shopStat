@@ -111,12 +111,13 @@ require_once __DIR__ . "/functions.php";
         <td colspan="6">
             <?php if (isset($_GET['date']) && $_GET['date'] == 'period' || $dateEnd - $dateStart >= 86400) { ?>
                 <input type="date" name="setEndDate" value="<?=date('Y-m-d', $dateEnd)?>">
+                <input type="submit" value="Обрати 1 день" name="deleteEndDate">
                 </form>
             <?php } else { 
                 if (isset($_GET['table'])) { ?>
-                    <a href="<?=$_SERVER['REQUEST_URI'] . 'date=period'?>">Вибрати період</a>
+                    <a href="<?=$_SERVER['REQUEST_URI'] . 'date=period&'?>">Вибрати період</a>
                 <?php } else { ?>
-                    <a href="<?=$_SERVER['REQUEST_URI'] . '?date=period'?>">Вибрати період</a>
+                    <a href="<?=$_SERVER['REQUEST_URI'] . '?date=period&'?>">Вибрати період</a>
                 <?php } ?>
             <?php } ?>
         </td>
@@ -126,5 +127,5 @@ require_once __DIR__ . "/functions.php";
 </table>
 </div>
 
-
+<?php var_dump($_POST) ?>
 <?php require __DIR__ . "/footer.php" ?>
