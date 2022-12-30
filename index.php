@@ -63,9 +63,9 @@ require_once __DIR__ . "/functions.php";
 
     <tr>
         <td>
-            <a href="?table=sale">Доходи</a>
+            <a href="?table=sale&">Доходи</a>
             <br />
-            <a href="?table=cost">Витрати</a>
+            <a href="?table=cost&">Витрати</a>
         </td>
         <td></td>
         <td></td>
@@ -109,12 +109,12 @@ require_once __DIR__ . "/functions.php";
 
     <tr>
         <td colspan="6">
-            <?php if (isset($_GET['date']) && $_GET['date'] == 'period') { ?>
+            <?php if (isset($_GET['date']) && $_GET['date'] == 'period' || $dateEnd - $dateStart >= 86400) { ?>
                 <input type="date" name="setEndDate" value="<?=date('Y-m-d', $dateEnd)?>">
                 </form>
             <?php } else { 
-                if (isCost()) { ?>
-                    <a href="<?=$_SERVER['REQUEST_URI'] . '&date=period'?>">Вибрати період</a>
+                if (isset($_GET['table'])) { ?>
+                    <a href="<?=$_SERVER['REQUEST_URI'] . 'date=period'?>">Вибрати період</a>
                 <?php } else { ?>
                     <a href="<?=$_SERVER['REQUEST_URI'] . '?date=period'?>">Вибрати період</a>
                 <?php } ?>
