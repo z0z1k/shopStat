@@ -4,8 +4,7 @@ require_once __DIR__ . "/mysql/getTable.php";
 require_once __DIR__ . "/functions.php";
 ?>
 
-<div class="container">
-<table class="container">
+<table class="table-fill">
 
 <?php if (isCost()) { ?>
     <form method="post" action="mysql/idDeleteCost.php" name="checkBox">
@@ -45,7 +44,7 @@ require_once __DIR__ . "/functions.php";
         <td><?=$product['name']?></td>
         <td><?=$product['price']?></td>
         <td></td>
-        <td><?=date('G:i:s', $product['date'])?></td>
+        <td><?=date(timeFormat(), $product['date'])?></td>
     <?php } else { ?>
         <td>
             <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>">
@@ -56,7 +55,7 @@ require_once __DIR__ . "/functions.php";
         <td><?=$product['profit']?>
         </td>
         <td><?=$product['remains']?></td>
-        <td><?=date('G:i:s', $product['date'])?></td>
+        <td><?=date(timeFormat(), $product['date'])?></td>
     <?php } ?>
     </tr>
     <?php } ?>
@@ -125,7 +124,5 @@ require_once __DIR__ . "/functions.php";
 </tbody>
 
 </table>
-</div>
 
-<?php var_dump($_POST) ?>
 <?php require __DIR__ . "/footer.php" ?>

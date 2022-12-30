@@ -5,6 +5,7 @@ function Redirect($url, $permanent = false)
         
     exit();
 }
+
 function getSum()
 {
 	$numm = 0;
@@ -14,10 +15,12 @@ function getSum()
 	}
 	return $numm;
 }
+
 function returnDate()
 {
 	return date('Y-m-d');
 }
+
 function tableName()
 {
 	if (isset($_GET['table']) && $_GET['table'] == 'cost') {
@@ -26,6 +29,7 @@ function tableName()
         return 'stats_sale';
     }
 }
+
 function isCost()
 {
 	if (isset($_GET['table']) && $_GET['table'] == 'cost') {
@@ -33,4 +37,13 @@ function isCost()
     } else {
         return false;
     }
+}
+
+function timeFormat()
+{
+	if (isset($_POST['setEndDate'])) {
+		return "d.m.Y G:i:s";
+	} else {
+		return "G:i:s";
+	}
 }

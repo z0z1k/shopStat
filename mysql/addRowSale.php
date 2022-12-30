@@ -4,10 +4,10 @@ require __DIR__ . "/../functions.php";
     
     if(isset($_POST['addProduct'])){
 
-        $product = !empty($_POST['product']) ? $_POST['product'] : '';
-        $price = !empty($_POST['price']) ? $_POST['price'] : 0;
-        $profit = !empty($_POST['profit']) ? $_POST['profit'] : 0;
-        $remains = !empty($_POST['remains']) ? $_POST['remains'] : 0;
+        $product = $_POST['product'] ?? '';
+        $price = $_POST['price'] ?? 0;
+        $profit = $_POST['profit'] ?? 0;
+        $remains = $_POST['remains'] ?? 0;
 
         $product = $mysqli->real_escape_string($product);
         $price = $mysqli->real_escape_string($price);

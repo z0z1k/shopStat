@@ -2,11 +2,7 @@
 require_once __DIR__ . "/mysqlConnect.php";
 require_once __DIR__ . "/../functions.php";
 
-    if (!isset($_COOKIE['dateStart'])) {
-        $dateStart = strtotime(returnDate());
-    } else {
-        $dateStart = $_COOKIE['dateStart'];
-    }
+    $dateStart = $_COOKIE['dateStart'] ?? strtotime(returnDate());
     
     if (isset($_POST['setDateBTN'])) {
         $dateStart = strtotime($_POST['setStartDate']);
@@ -14,6 +10,8 @@ require_once __DIR__ . "/../functions.php";
 
     if (isset($_COOKIE['dateEnd'])) {
         $dateEnd = $_COOKIE['dateEnd'];  
+    } else if (!isset($_POST['setEndDate'])) {
+        $dateEnd = $dateStart + 86399;
     }
 
     if (isset($_POST['setEndDate'])) {
@@ -30,8 +28,6 @@ require_once __DIR__ . "/../functions.php";
             $dateEnd = $dateStart + 86400;
         }
         setcookie("dateEnd", $dateEnd, time()+600);
-    } else {
-        $dateEnd = $dateStart + 86399;
     }
 
     if (isset($_POST['deleteEndDate'])) {
