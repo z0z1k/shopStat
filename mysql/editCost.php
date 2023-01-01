@@ -7,35 +7,39 @@ require __DIR__ . "/../header.php";
 
     $editId = $_GET['editId'];
     $getTable = $mysqli->query("SELECT `category`, `name`, `price` FROM `stats_cost` WHERE `stats_cost`.`id` = '$editId'");
-    $table = [];
-    while (($row = $getTable->fetch_assoc()) != false) {
-        $table[] = $row;
-    }
-    if (empty($table)) {
-    	redirect('../index.php?table=cost');
-    }
     
-    foreach ($table as $product) {
-    ?>
-
-    <form method="post" name="edit">
-    <div class="container">
-        <table border="1" width="80%" align="center">
+    $product[] = $getTable->fetch_assoc();
+    
+    if (reset($product) == false) {
+    	redirect('../index.php');
+    } else {
+        $product = reset($product);
+    }
+?>
+        <table> 
+            <thead>
             <tr>
-                <td><input type="text" name="category" value="<?=$product['category']?>"></td>
-                <td><input type="text" name="name" value="<?=$product['name']?>"></td>
-                <td><input type="text" name="price" value="<?=$product['price']?>"></td>
+                <th>Категорія</th>
+                <th>Назва</th>
+                <th colspan="2">Ціна</th>
+            </tr>
+            </thead>
+            <tr>
+                <form method="post" name="edit">
+                <td><input type="text" class="heighttext" name="category" value="<?=$product['category']?>"></td>
+                <td><input type="text" class="heighttext" name="name" value="<?=$product['name']?>"></td>
+                <td><input type="text" class="heighttext" name="price" value="<?=$product['price']?>"></td>
+                <td><input type="submit" class="heighttext" value="Редагувати" name="edit"></td>
+                </form>
             </tr>
         </table>
-    </div>
-        <p><input type="submit" value="Редагувати" name="edit"></p
-    </form>
-    <?php }
+    
+<?php
 
     if (isset($_POST['edit'])){
-        $category = !empty($_POST['category']) ? $_POST['category'] : '';
-        $name = !empty($_POST['name']) ? $_POST['name'] : 0;
-        $price = !empty($_POST['price']) ? $_POST['price'] : 0;
+        $category = $_POST['category'] ?? '';
+        $name = $_POST['name'] ?? 0;
+        $price = $_POST['price'] ?? 0;
 
         $category = $mysqli->real_escape_string($category);
         $name = $mysqli->real_escape_string($name);

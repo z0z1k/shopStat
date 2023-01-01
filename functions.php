@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/mysql/mysqlConnect.php";
 function Redirect($url, $permanent = false)
 {
     header('Location: ' . $url, true, $permanent ? 301 : 302);
@@ -41,9 +42,21 @@ function isCost()
 
 function timeFormat()
 {
-	if (isset($_POST['setEndDate'])) {
-		return "d.m.Y G:i:s";
+	if (isset($_COOKIE['dateEnd']) && $_COOKIE['dateEnd'] >= $_COOKIE['dateStart'] + 86400) {
+		return "d.m.Y \n G:i:s";
 	} else {
 		return "G:i:s";
 	}
+}
+
+function getSumFromTable($dateStart, $dateEnd, $row, $tableName = "stats_sale")
+{
+	global $mysqli;
+	$result = $mysqli->query("SELECT SUM($row) AS value_sum FROM `$tableName` WHERE `date` BETWEEN '$dateStart' AND '$dateEnd'"); 
+    $row = mysqli_fetch_assoc($result);
+    if ($row['value_sum'] == NULL) {
+        return 0;
+    } else {
+        return $row['value_sum'];
+    }
 }
