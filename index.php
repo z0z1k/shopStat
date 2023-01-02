@@ -1,69 +1,82 @@
 <?php
-require __DIR__ . "/header.php";
-require_once __DIR__ . "/mysql/getTable.php";
-require_once __DIR__ . "/functions.php";
+require __DIR__ . "/header.php"; // підключення функцій
+require_once __DIR__ . "/mysql/getTable.php"; // підключення таблиці
+require_once __DIR__ . "/functions.php"; // підключення функцій
 ?>
 
 <table class="table-fill">
 
 <!-- Створення форми для видалення -->
-
 <?php if (isCost()) { ?>
     <form method="post" action="mysql/idDeleteCost.php" name="checkBox"> <!-- витрати -->
 <?php } else { ?>
     <form method="post" action="mysql/idDeleteSale.php" name="checkBox"> <!-- доходи -->
 <?php } ?>
-
 <!-- -->
 
 <!-- Шапка таблиці -->
-
 <thead>   
     <tr>
-    <th><button type="submit" name="checkBox" value="Видалити"><img class="icon" src="img/deleteIcon.png"></th> <!-- Кнопка видалення -->
+    <th class="text-center"><button type="submit" name="checkBox" value="Видалити"><img class="icon" src="img/deleteIcon.png"></th> <!-- Кнопка видалення -->
+    
+    <!-- Шапка для витрат -->
     <?php if (isCost()) { ?>
-        <th>Категорія</th>
-        <th>Назва</th>
-        <th>Ціна</th>
+        <th class="text-center">Категорія</th>
+        <th class="text-center">Назва</th>
+        <th class="text-right">Ціна</th>
         <th>Час</th>
+    <!-- -->
+
+    <!-- Шапка  для доходів -->
     <?php } else { ?>
-        <th>Товар</th>
-        <th>Продажа</th>
-        <th>Чисті</th>
-        <th>Залишок</th>
+        <th class="text-center">Товар</th>
+        <th class="text-right">Продажа</th>
+        <th class="text-right">Чисті</th>
+        <th class="text-right">Залишок</th>
         <th>Час</th>
     <?php } ?>
+    <!-- -->
+
     </tr>
 </thead>
-
 <!-- Кінець шапки -->
 
 <tbody>
+    <!-- Рядки з даними -->
     <?php foreach ($table as $product) { ?>
     <tr>
+
+    <!-- Рядки витрат -->
     <?php if (isCost()) { ?>
-        <td>
-            <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>">
-            <a href="mysql/editCost.php?editId=<?=$product['id']?>"><img src="img/editIcon.png" class="icon"></a>
+        <td class="text-right">
+            <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>"> <!-- Чекбокс для видалення -->
+            <a href="mysql/editCost.php?editId=<?=$product['id']?>"><img src="img/editIcon.png" class="icon"></a> <!-- Кнопка редагувати -->
         </td>
-        <td><?=$product['category']?></td>
-        <td><?=$product['name']?></td>
-        <td><?=$product['price']?></td>
-        <td><?=date(timeFormat(), $product['date'])?></td>
+        <td class="text-center"><?=$product['category']?></td>  <!-- Категорія -->
+        <td class="text-center"><?=$product['name']?></td> <!-- Назва -->
+        <td class="text-right"><?=$product['price']?></td> <!-- Ціна -->
+        <td><?=date(timeFormat(), $product['date'])?></td>  <!-- Час -->
+    <!-- -->
+
+    <!-- Рядки доходів -->
     <?php } else { ?>
-        <td>
-            <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>">
-            <a href="mysql/editSale.php?editId=<?=$product['id']?>"><img src="img/editIcon.png" class="icon"></a>
+        <td class="text-right">
+            <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>"> <!-- Чекбокс для видалення -->
+            <a href="mysql/editSale.php?editId=<?=$product['id']?>"><img src="img/editIcon.png" class="icon"></a> <!-- Кнопка редагувати -->
         </td>
-        <td><?=$product['product']?></td>
-        <td><?=$product['price']?></td>
-        <td><?=$product['profit']?></td>
-        <td><?=$product['remains']?></td>
-        <td><?=date(timeFormat(), $product['date'])?></td>
+        <td class="text-center"><?=$product['product']?></td> <!-- Товар -->
+        <td class="text-right"><?=$product['price']?></td> <!-- Продажа -->
+        <td class="text-right"><?=$product['profit']?></td> <!-- Чисті -->
+        <td class="text-right"><?=$product['remains']?></td> <!-- Залишок -->
+        <td><?=date(timeFormat(), $product['date'])?></td> <!-- Дата -->
     <?php } ?>
+    <!-- -->
+
     </tr>
     <?php } ?>
-    </form> 
+    </form> <!-- Кінець форми для видалення -->
+    <!-- Кінець рядків з даними -->
+
     <tr>
         <td>
             <a href="?table=sale&">Доходи</a>
@@ -114,4 +127,4 @@ require_once __DIR__ . "/functions.php";
 
 </table>
 
-<?php require __DIR__ . "/footer.php" ?>
+<?php require __DIR__ . "/footer.php" ?> <!-- Підключення футеру -->

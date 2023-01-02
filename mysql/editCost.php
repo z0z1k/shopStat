@@ -1,27 +1,30 @@
 <?php 
-require __DIR__ . "/../functions.php";
-require __DIR__ . "/mysqlConnect.php";
-require __DIR__ . "/../header.php";
+require_once __DIR__ . "/../functions.php"; // підключення функцій
+require_once __DIR__ . "/mysqlConnect.php"; // підключення до БД
+require_once __DIR__ . "/../header.php"; // підключення хедеру
 
-    if(isset($_GET['editId'])) {
+    if(isset($_GET['editId'])) { // Перевірка, чи переданий ID
 
-    $editId = $_GET['editId'];
-    $getTable = $mysqli->query("SELECT `category`, `name`, `price` FROM `stats_cost` WHERE `stats_cost`.`id` = '$editId'");
+    $editId = $_GET['editId']; // Записуємо ID у змінну
+    $getTable = $mysqli->query("SELECT `category`, `name`, `price` FROM `stats_cost` WHERE `stats_cost`.`id` = '$editId'"); // Записуємо дані таблиці у змінну
     
-    $product[] = $getTable->fetch_assoc();
+    $product[] = $getTable->fetch_assoc(); // З таблиці беремо лише 1 рядок, тому без циклу записуємо його у змінну
     
-    if (reset($product) == false) {
-    	redirect('../index.php');
+    if (reset($product) == false) { // Перевіряємо, чи не прийшов пустий масив
+    	redirect('../index.php'); // Якщо пустий - редіректимо на головну сторінку
     } else {
-        $product = reset($product);
+        $product = reset($product); // У змінній двомірний масив з 1 значенням, перезаписуємо його у змінну, щоб було легше звертатись
     }
 ?>
-        <table> 
+
+    <!-- Таблиця з рядком, який редагуємо -->
+
+        <table align="center"> 
             <thead>
             <tr>
-                <th>Категорія</th>
-                <th>Назва</th>
-                <th colspan="2">Ціна</th>
+                <th class="text-center">Категорія</th>
+                <th class="text-center">Назва</th>
+                <th colspan="2" class="text-center">Ціна</th>
             </tr>
             </thead>
             <tr>
@@ -33,23 +36,25 @@ require __DIR__ . "/../header.php";
                 </form>
             </tr>
         </table>
+
+    <!-- Таблиця з рядком, який редагуємо -->
     
 <?php
 
-    if (isset($_POST['edit'])){
-        $category = $_POST['category'] ?? '';
-        $name = $_POST['name'] ?? 0;
-        $price = $_POST['price'] ?? 0;
+    if (isset($_POST['edit'])){ // Якщо натиснули кнопку "Редагувати"
+        $category = $_POST['category'] ?? ''; // Перевіряємо category на пустоту
+        $name = $_POST['name'] ?? 0; // Перевіряємо name на пустоту
+        $price = $_POST['price'] ?? 0; // Перевіряємо price на пустоту
 
-        $category = $mysqli->real_escape_string($category);
-        $name = $mysqli->real_escape_string($name);
-        $price = $mysqli->real_escape_string($price);
+        $category = $mysqli->real_escape_string($category); // Екрануємо спеціальні символи category
+        $name = $mysqli->real_escape_string($name); // Екрануємо спеціальні символи name
+        $price = $mysqli->real_escape_string($price); // Екрануємо спеціальні символи price
         
-        $mysqli->query("UPDATE `stats_cost` SET `category` = '$category', `name` = '$name', `price` = '$price' WHERE `stats_cost`.`id` = '$editId'"); 
+        $mysqli->query("UPDATE `stats_cost` SET `category` = '$category', `name` = '$name', `price` = '$price' WHERE `stats_cost`.`id` = '$editId'");  // Оновлюємо дані в таблиці
         
-        redirect('../index.php?table=cost');
+        redirect('../index.php?table=cost'); // Редиректимо на головну сторінку
     }
 
-    } else {
-        redirect('../index.php?table=cost');
+    } else { // Якщо ID не переданий
+        redirect('../index.php?table=cost'); // редиректимо на голвну сторінку
     } 

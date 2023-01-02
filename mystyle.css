@@ -127,3 +127,18 @@ td.text-right {
 .icon {
   width: 20px;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: black;
+}

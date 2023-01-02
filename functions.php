@@ -7,16 +7,6 @@ function Redirect($url, $permanent = false)
     exit();
 }
 
-function getSum()
-{
-	$numm = 0;
-	for ($i = 0; $i < func_num_args(); $i++) {
-		$arg[$i] = func_get_arg($i);
-		$numm += $arg[$i];
-	}
-	return $numm;
-}
-
 function returnDate()
 {
 	return date('Y-m-d');
@@ -42,7 +32,7 @@ function isCost()
 
 function timeFormat()
 {
-	if (isset($_COOKIE['dateEnd']) && $_COOKIE['dateEnd'] >= $_COOKIE['dateStart'] + 86400) {
+	if (isset($_COOKIE['dateEnd']) && $_COOKIE['dateEnd'] >= $_COOKIE['dateStart'] + 86400 || isset($_POST['setEndDate'])) {
 		return "d.m.Y \n G:i:s";
 	} else {
 		return "G:i:s";
@@ -59,4 +49,13 @@ function getSumFromTable($dateStart, $dateEnd, $row, $tableName = "stats_sale")
     } else {
         return $row['value_sum'];
     }
+}
+
+function getPercentage($profit, $price)
+{
+	if (!empty($profit) && !empty($price)){
+		return round($profit * 100 / $price, 2);
+	} else {
+		return "~";
+	}
 }

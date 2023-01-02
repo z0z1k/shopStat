@@ -1,55 +1,64 @@
 <?php 
-require __DIR__ . "/../functions.php";
-require __DIR__ . "/mysqlConnect.php";
-require __DIR__ . "/../header.php";
+require_once __DIR__ . "/../functions.php"; // підключення функцій
+require_once __DIR__ . "/mysqlConnect.php"; // підключення до БД
+require_once __DIR__ . "/../header.php"; // підключення хедеру
 
-    if(isset($_GET['editId'])) {
+    if(isset($_GET['editId'])) { // Перевірка, чи переданий ID
 
-    $editId = $_GET['editId'];
-    $getTable = $mysqli->query("SELECT `product`, `price`, `profit`, `remains` FROM `stats_sale` WHERE `stats_sale`.`id` = '$editId'");
+    $editId = $_GET['editId']; // Записуємо номер у змінну
+    $getTable = $mysqli->query("SELECT `product`, `price`, `profit`, `remains` FROM `stats_sale` WHERE `stats_sale`.`id` = '$editId'"); // Записуємо дані таблиці у змінну
     
-    $product[] = $getTable->fetch_assoc();
+    $product[] = $getTable->fetch_assoc(); // З таблиці беремо лише 1 рядок, тому без циклу записуємо його у змінну
     
-    if (reset($product) == false) {
-    	redirect('../index.php');
+    if (reset($product) == false) { // Перевіряємо, чи не прийшов пустий масив
+    	redirect('../index.php'); // Якщо пустий - редіректимо на головну сторінку
     } else {
-        $product = reset($product);
+        $product = reset($product); // У змінній двомірний масив з 1 значенням, перезаписуємо його у змінну, щоб було легше звертатись
     }
     
 ?>
+    <!-- Таблиця з рядком, який редагуємо -->
 
-    <div class="container">
-        <table border="1" width="80%" align="center">
+        <table border="0" align="center">
+            <thead>
+            <tr>
+                <th class="text-center">Товар</th> <!-- Товар -->
+                <th class="text-center">Продажа</th> <!-- Продажа -->
+                <th class="text-right">Чисті</th> <!-- Чисті -->
+                <th colspan = "2" class="text-center">Залишок</th> <!-- Залишок -->
+            </tr>
+            </thead>
             <tr>
                 <form method="post" name="edit">
-                <td><input type="text" name="product" value="<?=$product['product']?>"></td>
-                <td><input type="text" name="price" value="<?=$product['price']?>"></td>
-                <td><input type="text" name="profit" value="<?=$product['profit']?>"></td>
-                <td><input type="text" name="remains" value="<?=$product['remains']?>"></td>
-                <td><input type="submit" value="Редагувати" name="edit"></td>
+                <td><input type="text" name="product" value="<?=$product['product']?>"></td> <!-- Товар -->
+                <td><input type="text" name="price" value="<?=$product['price']?>"></td> <!-- Продажа -->
+                <td><input type="text" name="profit" value="<?=$product['profit']?>"></td> <!-- Чисті -->
+                <td><input type="text" name="remains" value="<?=$product['remains']?>"></td> <!-- Залишок -->
+                <td><input type="submit" value="Редагувати" name="edit"></td> <!-- Кнопка "Редагувати" -->
                 </form>
             </tr>
         </table>
-    </div>
+
+    <!-- Кінець таблиці -->
 
 <?php
 
-    if (isset($_POST['edit'])){
-        $product = !empty($_POST['product']) ? $_POST['product'] : '';
-        $price = !empty($_POST['price']) ? $_POST['price'] : 0;
-        $profit = !empty($_POST['profit']) ? $_POST['profit'] : 0;
-        $remains = !empty($_POST['remains']) ? $_POST['remains'] : 0;
+    if (isset($_POST['edit'])){ // Якщо натиснули кнопку "Редагувати"
+        $product = $_POST['product'] ?? ''; // Перевіряємо product на пустоту
+        $price = $_POST['price'] ?? 0; // Перевіряємо price на пустоту
+        $profit = $_POST['profit'] ?? 0; // Перевіряємо profit на пустоту
+        $remains = $_POST['remains'] ?? 0; // Перевіряємо remains на пустоту
 
-        $product = $mysqli->real_escape_string($product);
-        $price = $mysqli->real_escape_string($price);
-        $profit = $mysqli->real_escape_string($profit);
-        $remains = $mysqli->real_escape_string($remains);
+        $product = $mysqli->real_escape_string($product); // Екрануємо спеціальні символи product
+        $price = $mysqli->real_escape_string($price); // Екрануємо спеціальні символи price
+        $profit = $mysqli->real_escape_string($profit); // Екрануємо спеціальні символи profit
+        $remains = $mysqli->real_escape_string($remains); // Екрануємо спеціальні символи remains
         
-        $mysqli->query("UPDATE `stats_sale` SET `product` = '$product', `price` = '$price', `profit` = '$profit', `remains` = '$remains' WHERE `stats_sale`.`id` = '$editId'"); 
+        $mysqli->query("UPDATE `stats_sale` SET `product` = '$product', `price` = '$price', `profit` = '$profit', `remains` = '$remains' WHERE `stats_sale`.`id` = '$editId'"); // Оновлюємо дані в таблиці
         
-        redirect('../index.php');
+        redirect('../index.php'); // Редиректимо на головну сторінку
     }
 
-    } else {
-        redirect('../index.php');
+    } else { // Якщо ID не переданий
+        redirect('../index.php'); // редиректимо на головну сторінку
     } 
