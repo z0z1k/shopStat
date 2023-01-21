@@ -2,6 +2,7 @@
 require __DIR__ . "/header.php"; // підключення функцій
 require_once __DIR__ . "/mysql/getTable.php"; // підключення таблиці
 require_once __DIR__ . "/functions.php"; // підключення функцій
+require_once __DIR__ . "/app/date.php";
 ?>
 
 <table class="table-fill">
@@ -104,7 +105,7 @@ require_once __DIR__ . "/functions.php"; // підключення функці�
     <tr>
         <td colspan="6">
             <form name="setDate" method="post">
-                За <input type="date" name="setStartDate" value="<?=date('Y-m-d', $dateStart)?>"> <!-- Перша дата -->
+                За <input type="date" name="setStartDate" value="<?=date('Y-m-d', Cookie::get('dateStart'))?>"> <!-- Перша дата -->
 
                 <!-- Вибір одного дня або періоду -->
 
