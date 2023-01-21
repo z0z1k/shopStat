@@ -6,7 +6,6 @@ require_once __DIR__ . "/../app/date.php";
     $dateStart = Cookie::get("dateStart");
     $dateEnd = Cookie::get("dateEnd");
     
-
     $tableName = tableName(); // записуємо у змінній назву таблиці, з якою будемо працювати
 
     $items = $mysqli->query("SELECT * FROM `$tableName` WHERE `date` BETWEEN '$dateStart' AND '$dateEnd'"); // Записуємо дані таблиці у змінну

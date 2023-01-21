@@ -35,7 +35,7 @@ class Cookie
         }
     }
 
-    public static function get(string $name)
+    public static function get(string $name) : string
     {
         return $_COOKIE[$name];
     }
