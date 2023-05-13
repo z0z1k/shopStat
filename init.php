@@ -3,10 +3,10 @@
     const HOST = 'http://localhost';
     const BASE_URL = '/';
 
-    const DB_HOST = 'z0z1k.mysql.tools';
-    const DB_NAME = 'z0z1k_stats';
-    const DB_USER = 'z0z1k_stats';
-    const DB_PASS = ')~X7z9zi3R';
+    const DB_HOST = '';
+    const DB_NAME = '';
+    const DB_USER = '';
+    const DB_PASS = '';
 
     include 'core/dt.php';
     include 'core/db.php';
