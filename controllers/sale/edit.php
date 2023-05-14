@@ -4,8 +4,6 @@ $pageTitle = 'Редагувати рядок';
 $id = intval($routerRes['params']['id']);
 $product = getSaleOne($id);
 
-$validateErrors = [];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $params = extractFields($_POST, ['product', 'price', 'profit', 'remains']);

@@ -21,7 +21,7 @@
 
                 <td class="text-right">
                     <input type="checkbox" name="idDelete[]" value="<?=$product['id']?>"> <!-- Чекбокс для видалення -->
-                    <a href="mysql/editCost.php?editId=<?=$product['id']?>"><img src="<?=BASE_URL?>assets/img/editIcon.png" class="icon"></a> <!-- Кнопка редагувати -->
+                    <a href="<?=BASE_URL?>cost/<?=$product['id']?>"><img src="<?=BASE_URL?>assets/img/editIcon.png" class="icon"></a> <!-- Кнопка редагувати -->
                 </td>
                 <td class="text-center"><?=$product['category']?></td>  <!-- Категорія -->
                 <td class="text-center"><?=$product['name']?></td> <!-- Назва -->

@@ -3,8 +3,14 @@
     function getCost($dateStart, $dateEnd)
     {
         $sql = "SELECT * FROM `stats_cost` WHERE `date` BETWEEN '$dateStart' AND '$dateEnd'";
-
         return dbQuery($sql)->fetchAll();
+    }
+
+    function getCostOne($id)
+    {
+        $sql = "SELECT * FROM `stats_cost` WHERE `stats_cost`.`id` = $id";
+
+        return dbQuery($sql)->fetch();
     }
 
     function addRowCost(array $params)
@@ -17,6 +23,12 @@
     {
         $sql = "DELETE FROM `stats_cost` WHERE `stats_cost`.`id` = '$row'";
         dbQuery($sql);
+    }
+
+    function editRowCost($id, $params)
+    {
+        $sql = "UPDATE `stats_cost` SET `category` = :category, `name` = :name, `price` = :price WHERE `stats_cost`.`id` = $id";
+        dbQuery($sql, $params);
     }
 
     function validateCostErrors(array &$fields) : array {
