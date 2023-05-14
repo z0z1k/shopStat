@@ -1,25 +1,25 @@
 <?php
 
-    function getTable($dateStart, $dateEnd)
+    function getCost($dateStart, $dateEnd)
     {
         $sql = "SELECT * FROM `stats_cost` WHERE `date` BETWEEN '$dateStart' AND '$dateEnd'";
 
         return dbQuery($sql)->fetchAll();
     }
 
-    function addRow(array $params)
+    function addRowCost(array $params)
     {
         $sql = "INSERT INTO `stats_cost` (`category`, `name`, `price`, `date`) VALUES (:category, :name, :price, UNIX_TIMESTAMP());";
         dbQuery($sql, $params);
     }
 
-    function deleteRow($row)
+    function deleteRowCost($row)
     {
-        $sql = "DELETE FROM `stats_cost` WHERE `stats_sale`.`id` = '$row'";
+        $sql = "DELETE FROM `stats_cost` WHERE `stats_cost`.`id` = '$row'";
         dbQuery($sql);
     }
 
-    function validateErrors(array &$fields) : array {
+    function validateCostErrors(array &$fields) : array {
         $errors = [];
 
         $fields['price'] = intval($fields['price']);

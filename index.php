@@ -6,6 +6,8 @@
     $uri = $_SERVER['REQUEST_URI'];
     $badUrl = BASE_URL . 'index.php';
 
+    $validateErrors = [];
+
     if(strpos($uri, $badUrl) === 0) {
         $cname = 'errors/e404';
     } else {
@@ -15,8 +17,7 @@
         define('URL_PARAMS', $routerRes['params']);
 
         $cname = $routerRes['controller'];
-        $mname = $routerRes['model'];
-        $path = "model/$mname.php";
+        $path = "controllers/$cname.php";
 
         if (file_exists($path)) {
             include $path;
@@ -29,13 +30,12 @@
         
         $pageCanonical .= $url;
     }
-
-    include "controllers/$cname.php";
     
     $html = template("base/v_main", [
         'title' => $pageTitle,
         'content' => $pageContent,
-        'canonical' => $pageCanonical
+        'canonical' => $pageCanonical,
+        'validateErrors' => $validateErrors
     ]);
 
     echo $html;

@@ -1,34 +1,35 @@
 <?php
 
-    $products = getTable($dateStart, $dateEnd);
+    $productsSale = getSale($dateStart, $dateEnd);
 
     $validateErrors = [];
 
     if (isset($_POST['addProduct'])) {
 
         $fields = extractFields($_POST, ['product', 'price', 'profit', 'remains']);
-        $validateErrors = validateErrors($fields);
+        $validateErrors = validateSaleErrors($fields);
 
         if (empty($validateErrors)){
-            addRow($fields);
+            addRowSale($fields);
             header('Location: ' . BASE_URL, true, $permanent ? 301 : 302);
+            exit();
         }
     }
 
     if (isset($_POST['deleteButton'])) {
         foreach ($_POST['idDelete'] as $row) {
-            deleteRow($row);
+            deleteRowSale($row);
         }
 
         header('Location: ' . BASE_URL, true, $permanent ? 301 : 302);
+        exit();
     }
 
     $pageTitle = 'Доходи';
-    $pageContent = template('v_sale', [
-        'products' => $products,
+    $pageContent = template('sale/v_all', [
+        'products' => $productsSale,
         'dateStart' => $dateStart,
         'dateEnd' => $dateEnd,
-        'validateErrors' => $validateErrors,
     ]);
 
     file_put_contents('1', $pageContent);

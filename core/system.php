@@ -14,7 +14,6 @@
     {
         $res = [
             'controller' => 'errors/e404',
-            'model' => '',
             'params' => []
         ];
 
@@ -23,7 +22,6 @@
 
             if (preg_match($route['name'], $url, $matches)) {
                 $res['controller'] = $route['controller'];
-                $res['model'] = $route['model'];
                 
                 if(isset($route['params'])){
 					foreach($route['params'] as $name => $num){

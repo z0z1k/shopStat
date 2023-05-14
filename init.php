@@ -11,4 +11,6 @@
     include 'core/dt.php';
     include 'core/db.php';
     include 'core/system.php';
-    include 'core/arr.php';    
+    include 'core/arr.php';
+    include 'model/cost.php';
+    include 'model/sale.php';

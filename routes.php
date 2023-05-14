@@ -8,29 +8,24 @@ return (function()
     return [
         [
             'name' => '/^$/',
-            'controller' => 'sale',
-            'model' => 'sale'
+            'controller' => 'sale/all',
         ],
         [
             'name' => '/^sale\/?$/',
-            'controller' => 'sale',
-            'model' => 'sale'
+            'controller' => 'sale/all',
         ],
         [
             'name' => "/^sale\/($intGT0)\/?$/",
             'controller' => 'sale/edit',
-            'model' => 'sale',
             'params' => ['id' => 1]
         ],
         [
             'name' => '/^cost\/?$/',
-            'controller' => 'cost',
-            'model' => 'cost'
+            'controller' => 'cost/all',
         ],
         [
             'name' => "/^cost\/($intGT0)\/?$/",
             'controller' => 'cost/edit',
-            'model' => 'cost',
             'params' => ['id' => 1]
         ]
     ];
