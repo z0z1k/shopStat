@@ -30,14 +30,14 @@
         
         $pageCanonical .= $url;
     }
-    
+
     $html = template("base/v_main", [
         'title' => $pageTitle,
         'content' => $pageContent,
         'canonical' => $pageCanonical,
-        'validateErrors' => $validateErrors
+        'validateErrors' => $validateErrors,
+        'dateStart' => $dateStart,
+        'dateEnd' => $dateEnd
     ]);
 
     echo $html;
-
-    file_put_contents('1', $html);

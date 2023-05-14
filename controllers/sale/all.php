@@ -28,8 +28,6 @@
     $pageTitle = 'Доходи';
     $pageContent = template('sale/v_all', [
         'products' => $productsSale,
-        'dateStart' => $dateStart,
-        'dateEnd' => $dateEnd,
     ]);
 
     file_put_contents('1', $pageContent);

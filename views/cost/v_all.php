@@ -47,29 +47,4 @@
 
             </tr>
     
-
-            <tr>
-                <td colspan="5">
-                        За <input type="date" name="setStartDate" value="<?=date('Y-m-d', $dateStart)?>"> <!-- Перша дата -->
-
-                        <!-- Вибір одного дня або періоду -->
-
-                        <?php  if (isset($_POST['datePeriod']) || $dateEnd-$dateStart > 86399) { ?>
-                            <input type="date" name="setEndDate" value="<?=date('Y-m-d', $dateEnd)?>"> <!-- Друга дата -->
-                            <input type="submit" value="-" name="dateDay"> <!-- Кнопка для вибору одного дня -->
-                        <?php } else { ?>
-                            <input type="submit" value="+" name="datePeriod"> <!-- Кнопка вибору періоду -->
-                        <?php } ?>
-
-                        <!-- Кінець вибору -->
-
-                        <input type="submit" value="setDate" name="setDateBTN"> : <br> <!-- Кнопка відправки дати -->
-                        <?='Тут буде виводитись фінальна статистика *перенести цей рядок в верхню вьюшку'?> <!-- Виводимо результати доходів і розходів -->
-                        
-                        <? foreach($validateErrors as $error): ?>
-                            <script> alert("<?=$error?>"); </script>
-                        <? endforeach ?>
-                </td>
-            </tr>
-
         </tbody>

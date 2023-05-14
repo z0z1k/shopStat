@@ -28,8 +28,6 @@
     $pageTitle = 'Витрати';
     $pageContent = template('cost/v_all', [
         'products' => $productsCost,
-        'dateStart' => $dateStart,
-        'dateEnd' => $dateEnd,
         'validateErrors' => $validateErrors,
     ]);
 
