@@ -31,10 +31,14 @@
                         <input type="submit" value="setDate" name="setDateBTN"> : <br> <!-- Кнопка відправки дати -->
                         
                         
-                        <p>Сума грязних <?=getSumPriceSale($dateStart, $dateEnd)?></p>
-                        <p>Сума чистих <?=getSumProfitSale($dateStart, $dateEnd)?></p>
-                        <p>Витрати <?=getSumPriceCost($dateStart, $dateEnd)?></p>
-                        <p>Загальний дохід <?=getSumProfitSale($dateStart, $dateEnd)-getSumPriceCost($dateStart, $dateEnd)?></p>
+                        <p>Сума грязних <?=getSumPriceSale($dateStart, $dateEnd)?> грн</p>
+                        <p>Сума чистих <?=getSumProfitSale($dateStart, $dateEnd)?> грн</p>
+                        <p>Витрати <?=getSumPriceCost($dateStart, $dateEnd)?> грн</p>
+                        <p>Загальний дохід <?=getSumProfitSale($dateStart, $dateEnd)-getSumPriceCost($dateStart, $dateEnd)?> грн</p>
+                        <? if(getDayCount($dateStart, $dateEnd) > 1): ?>
+                            <p>Середній дохід за день <?=ceil((getSumProfitSale($dateStart, $dateEnd)-getSumPriceCost($dateStart, $dateEnd))/getDayCount($dateStart, $dateEnd))?> грн</p>
+                        <? endif ?>
+
                         
                 </td>
             </tr>
